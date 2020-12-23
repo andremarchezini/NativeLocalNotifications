@@ -71,12 +71,12 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View button) {
                 try{
-                for(int i=1; i<= 10; i++){
-                    long millis = System.currentTimeMillis() + (300000 * i);
+                for(int i=1; i<= 24; i++){
+                    long millis = System.currentTimeMillis() + (3600000 * i);
                     Intent intent = new Intent(MyApplication.getAppContext(), NotificationReceiver.class);
                     intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     String title = "Scheduled Notification " + DateFormat.format("dd/MM/yyyy hh:mm:ss", millis).toString();
-                    String text = "This is a scheduled notification";
+                    String text = "This is a scheduled notification " + i;
                     intent.putExtra("title", title);
                     intent.putExtra("text", text);
                     intent.putExtra("id", String.valueOf(i));
