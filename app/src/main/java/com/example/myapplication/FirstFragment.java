@@ -74,6 +74,7 @@ public class FirstFragment extends Fragment {
                 for(int i=1; i<= 10; i++){
                     long millis = System.currentTimeMillis() + (300000 * i);
                     Intent intent = new Intent(MyApplication.getAppContext(), NotificationReceiver.class);
+                    intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
                     String title = "Scheduled Notification " + DateFormat.format("dd/MM/yyyy hh:mm:ss", millis).toString();
                     String text = "This is a scheduled notification";
                     intent.putExtra("title", title);
