@@ -1,15 +1,22 @@
 package com.example.myapplication;
 
 import android.annotation.SuppressLint;
+import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -18,6 +25,8 @@ import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
 public class FirstFragment extends Fragment {
+
+        boolean scheduled = false;
 
     @Override
     public View onCreateView(
@@ -30,7 +39,6 @@ public class FirstFragment extends Fragment {
 
     public void onViewCreated(@NonNull View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
         view.findViewById(R.id.button).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -58,5 +66,36 @@ public class FirstFragment extends Fragment {
                 }
             }
         });
+
+        view.findViewById(R.id.button2).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View button) {
+                try{
+                for(int i=1; i<= 10; i++){
+                    long millis = System.currentTimeMillis() + (300000 * i);
+                    Intent intent = new Intent(MyApplication.getAppContext(), NotificationReceiver.class);
+                    String title = "Scheduled Notification " + DateFormat.format("dd/MM/yyyy hh:mm:ss", millis).toString();
+                    String text = "This is a scheduled notification";
+                    intent.putExtra("title", title);
+                    intent.putExtra("text", text);
+                    intent.putExtra("id", String.valueOf(i));
+                    PendingIntent pending = PendingIntent.getBroadcast(MyApplication.getAppContext(), i, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                    // Schedule notification
+                    AlarmManager manager = (AlarmManager) MyApplication.getAppContext().getSystemService(Context.ALARM_SERVICE);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        manager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, millis, pending);
+                    }
+
+                    TextView textView = view.findViewById(R.id.textView2);
+
+                    textView.setVisibility(View.VISIBLE);
+
+                }
+                } catch (Error e){
+                    Log.i("Error", e.toString());
+                }
+            }
+        });
+
     }
 }

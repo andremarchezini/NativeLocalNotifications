@@ -7,10 +7,32 @@
     tools:context=".FirstFragment">
 
   <Button
-    android:id="@+id/button"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Schedule Notifications"
-    tools:layout_editor_absoluteX="90dp"
-    tools:layout_editor_absoluteY="341dp" />
+      android:id="@+id/button"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="48dp"
+      android:text="Send Notification Now"
+      app:layout_constraintBottom_toTopOf="@+id/button2"
+      tools:layout_editor_absoluteX="90dp" />
+
+  <Button
+      android:id="@+id/button2"
+      android:layout_width="wrap_content"
+      android:layout_height="48dp"
+      android:layout_marginBottom="384dp"
+      android:text="Schedule Notifications"
+      app:layout_constraintBottom_toBottomOf="parent"
+      tools:layout_editor_absoluteX="82dp" />
+
+  <TextView
+      android:id="@+id/textView2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginBottom="356dp"
+      android:text="Scheduled"
+      android:visibility="invisible"
+      app:layout_constraintBottom_toBottomOf="parent"
+      tools:layout_editor_absoluteX="161dp"
+      tools:visibility="invisible" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
