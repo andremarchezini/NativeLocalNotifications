@@ -43,7 +43,9 @@ public class NotificationReceiver extends BroadcastReceiver {
                 .setContentText(DateFormat.format("dd/MM/yyyy hh:mm:ss", System.currentTimeMillis()).toString() + intent.getStringExtra("text"))
                 .setStyle(new NotificationCompat.BigTextStyle()
                         .bigText(intent.getStringExtra("text")))
-                .setPriority(NotificationCompat.PRIORITY_MAX);
+                .setPriority(NotificationCompat.PRIORITY_MAX)
+                .setCategory(NotificationCompat.CATEGORY_REMINDER);
+
         // Show notification
         manager.notify(Integer.parseInt(intent.getStringExtra("id")), builder.build());
 
