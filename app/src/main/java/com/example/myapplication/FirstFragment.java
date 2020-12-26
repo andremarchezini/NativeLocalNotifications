@@ -24,6 +24,8 @@ import androidx.core.app.NotificationManagerCompat;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
 
+import io.sentry.Sentry;
+
 public class FirstFragment extends Fragment {
 
         boolean scheduled = false;
@@ -71,11 +73,12 @@ public class FirstFragment extends Fragment {
             @Override
             public void onClick(View button) {
                 try{
-                for(int i=1; i<= 24; i++){
-                    long millis = System.currentTimeMillis() + (3600000 * i);
+                    String[] notifications = new String[48];
+                    for(int i=1; i<= 20; i++){
+                    long millis = System.currentTimeMillis() + (7200000 * i);
                     Intent intent = new Intent(MyApplication.getAppContext(), NotificationReceiver.class);
                     intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES);
-                    String title = "Scheduled Notification " + DateFormat.format("dd/MM/yyyy hh:mm:ss", millis).toString();
+                    String title = "Scheduled Notification " + i + " " + DateFormat.format("dd/MM/yyyy hh:mm:ss", millis).toString();
                     String text = "This is a scheduled notification " + i;
                     intent.putExtra("title", title);
                     intent.putExtra("text", text);
@@ -90,8 +93,34 @@ public class FirstFragment extends Fragment {
                     TextView textView = view.findViewById(R.id.textView2);
 
                     textView.setVisibility(View.VISIBLE);
+                        notifications[i -1 ]= "Notifications Scheduled: " +  DateFormat.format("dd/MM/yyyy hh:mm:ss", millis);
 
                 }
+
+                    Sentry.configureScope(scope -> {
+                        scope.setContexts("notifications 0", notifications[0]);
+                        scope.setContexts("notifications 1", notifications[1]);
+                        scope.setContexts("notifications 2", notifications[2]);
+                        scope.setContexts("notifications 3", notifications[3]);
+                        scope.setContexts("notifications 4", notifications[4]);
+                        scope.setContexts("notifications 5", notifications[5]);
+                        scope.setContexts("notifications 6", notifications[6]);
+                        scope.setContexts("notifications 7", notifications[7]);
+                        scope.setContexts("notifications 8", notifications[8]);
+                        scope.setContexts("notifications 9", notifications[9]);
+                        scope.setContexts("notifications 10", notifications[10]);
+                        scope.setContexts("notifications 11", notifications[11]);
+                        scope.setContexts("notifications 12", notifications[12]);
+                        scope.setContexts("notifications 13", notifications[13]);
+                        scope.setContexts("notifications 14", notifications[14]);
+                        scope.setContexts("notifications 15", notifications[15]);
+                        scope.setContexts("notifications 16", notifications[16]);
+                        scope.setContexts("notifications 17", notifications[17]);
+                        scope.setContexts("notifications 18", notifications[18]);
+                        scope.setContexts("notifications 19", notifications[19]);
+                    });
+                    Sentry.captureMessage(String.valueOf(DateFormat.format("dd/MM/yyyy hh:mm:ss", System.currentTimeMillis())));
+
                 } catch (Error e){
                     Log.i("Error", e.toString());
                 }

@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication"
         android:name="com.example.myapplication.MyApplication">
+        <meta-data android:name="io.sentry.dsn" android:value="https://61598139a63548b28b0cc28ba196daf3@o58028.ingest.sentry.io/5569344" />
         <receiver
             android:name=".NotificationReceiver"
             android:enabled="true" />

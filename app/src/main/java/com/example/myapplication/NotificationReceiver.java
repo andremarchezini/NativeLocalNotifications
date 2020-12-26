@@ -14,10 +14,15 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import io.sentry.Sentry;
+
 public class NotificationReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.i("Info", "Schedule Trigger " + intent.getStringExtra("id") );
+
+        Sentry.captureMessage(intent.getStringExtra("title"));
+
         String CHANNEL_ID = "CH1";
         String CHANNEL_NAME = "CHANNEL";
         NotificationManager manager = null;
