@@ -36,18 +36,25 @@ public class NotificationReceiver extends BroadcastReceiver {
             manager.createNotificationChannel(channel);
         }
 
-        // Build notification based on Intent
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(MyApplication.getAppContext(), CHANNEL_ID)
-                .setSmallIcon(R.drawable.ic_stat_name)
-                .setContentTitle(intent.getStringExtra("title"))
-                .setContentText(DateFormat.format("dd/MM/yyyy hh:mm:ss", System.currentTimeMillis()).toString() + intent.getStringExtra("text"))
-                .setStyle(new NotificationCompat.BigTextStyle()
-                        .bigText(intent.getStringExtra("text")))
-                .setPriority(NotificationCompat.PRIORITY_MAX)
-                .setCategory(NotificationCompat.CATEGORY_REMINDER);
+        try {
+            // Build notification based on Intent
+            NotificationCompat.Builder builder = new NotificationCompat.Builder(MyApplication.getAppContext(), CHANNEL_ID)
+                    .setSmallIcon(R.drawable.ic_stat_name)
+                    .setContentTitle(intent.getStringExtra("title"))
+                    .setContentText(DateFormat.format("dd/MM/yyyy hh:mm:ss", System.currentTimeMillis()).toString() + intent.getStringExtra("text"))
+                    .setStyle(new NotificationCompat.BigTextStyle()
+                            .bigText(intent.getStringExtra("text")))
+                    .setPriority(NotificationCompat.PRIORITY_MAX)
+                    .setCategory(NotificationCompat.CATEGORY_REMINDER);
 
-        // Show notification
-        manager.notify(Integer.parseInt(intent.getStringExtra("id")), builder.build());
+            // Show notification
+            manager.notify(Integer.parseInt(intent.getStringExtra("id")), builder.build());
+            Sentry.captureMessage("notified " + intent.getStringExtra("title"));
 
+        } catch (Exception e) {
+            Sentry.captureMessage("NOT notified " + intent.getStringExtra("title"));
+            Sentry.captureMessage(e.toString());
+        }
     }
+
 }
