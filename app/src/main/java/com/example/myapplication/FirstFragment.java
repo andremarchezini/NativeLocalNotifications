@@ -93,31 +93,32 @@ public class FirstFragment extends Fragment {
                     TextView textView = view.findViewById(R.id.textView2);
 
                     textView.setVisibility(View.VISIBLE);
-                        notifications[i -1 ]= "Notifications Scheduled: " +  DateFormat.format("dd/MM/yyyy hh:mm:ss", millis);
-
+                        notifications[i -1 ]= "Notifications Scheduled: " +  DateFormat.format("dd/MM/yyyy HH:mm:ss", millis);
+                        Log.i("Scheduled: ", notifications[i -1 ]);
                 }
 
                     Sentry.configureScope(scope -> {
-                        scope.setContexts("notifications 0", notifications[0]);
-                        scope.setContexts("notifications 1", notifications[1]);
-                        scope.setContexts("notifications 2", notifications[2]);
-                        scope.setContexts("notifications 3", notifications[3]);
-                        scope.setContexts("notifications 4", notifications[4]);
-                        scope.setContexts("notifications 5", notifications[5]);
-                        scope.setContexts("notifications 6", notifications[6]);
-                        scope.setContexts("notifications 7", notifications[7]);
-                        scope.setContexts("notifications 8", notifications[8]);
-                        scope.setContexts("notifications 9", notifications[9]);
-                        scope.setContexts("notifications 10", notifications[10]);
-                        scope.setContexts("notifications 11", notifications[11]);
-                        scope.setContexts("notifications 12", notifications[12]);
-                        scope.setContexts("notifications 13", notifications[13]);
-                        scope.setContexts("notifications 14", notifications[14]);
-                        scope.setContexts("notifications 15", notifications[15]);
-                        scope.setContexts("notifications 16", notifications[16]);
-                        scope.setContexts("notifications 17", notifications[17]);
-                        scope.setContexts("notifications 18", notifications[18]);
-                        scope.setContexts("notifications 19", notifications[19]);
+                        scope.setContexts("schedule:",
+                                notifications[0] + "\n" +
+                                        notifications[1] + "\n" +
+                                        notifications[2] + "\n" +
+                                        notifications[3] + "\n" +
+                                        notifications[4] + "\n" +
+                                        notifications[5] + "\n" +
+                                        notifications[6] + "\n" +
+                                        notifications[7] + "\n" +
+                                        notifications[8] + "\n" +
+                                        notifications[9] + "\n" +
+                                        notifications[10] + "\n" +
+                                        notifications[11] + "\n" +
+                                        notifications[12] + "\n" +
+                                        notifications[13] + "\n" +
+                                        notifications[14] + "\n" +
+                                        notifications[15] + "\n" +
+                                        notifications[16] + "\n" +
+                                        notifications[17] + "\n" +
+                                        notifications[18] + "\n" +
+                                        notifications[19] + "\n" );
                     });
                     Sentry.captureMessage(String.valueOf(DateFormat.format("dd/MM/yyyy hh:mm:ss", System.currentTimeMillis())));
 
